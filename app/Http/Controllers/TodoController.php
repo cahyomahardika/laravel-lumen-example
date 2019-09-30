@@ -19,10 +19,17 @@ class TodoController extends Controller
         $data = ModelTodo::all();
         return response($data);
     }
+  
     public function show($id){
         $data = ModelTodo::where('id',$id)->get();
-        return response ($data);
+        $tidak = 'Data tidak ditemukan';
+        if(isset($data) && count($data) > 0) {  
+            return response ($data);
+        } else {  
+            return response ($tidak);
+        }
     }
+
     public function store (Request $request){
         $data = new ModelTodo();
         $data->activity = $request->input('activity');
@@ -47,6 +54,4 @@ class TodoController extends Controller
     
         return response('Berhasil Menghapus Data');
     }
-    //
-
 }
